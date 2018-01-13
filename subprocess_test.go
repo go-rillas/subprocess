@@ -17,7 +17,6 @@ func TestRunValidCommand(t *testing.T) {
 	}
 }
 
-
 func TestRunInValidCommandBadArgument(t *testing.T) {
 	response := Run("git", "--bogus")
 	if response.ExitCode == 0 {

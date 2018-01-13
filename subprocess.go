@@ -25,7 +25,7 @@ func Run(executable string, args ...string) Response {
 	// define the returned object fields with the data returned
 	res.StdOut = outbuf.String()
 	res.StdErr = errbuf.String()
-	
+
 	if err != nil {
 		// fail, non-zero exit status conditions
 		if exitError, ok := err.(*exec.ExitError); ok {
