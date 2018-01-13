@@ -28,12 +28,12 @@ type Response struct {
 //
 // Example:
 //
-// func main() {
-//     response := Run("go", "--help")
-//     fmt.Printf("%s\n", response.StdOut)
-//     fmt.Printf("%s\n", response.StdErr)
-//     fmt.Printf("%d\n", response.ExitCode)
-// }
+//     func main() {
+//         response := Run("go", "--help")
+//         fmt.Printf("%s\n", response.StdOut)
+//         fmt.Printf("%s\n", response.StdErr)
+//         fmt.Printf("%d\n", response.ExitCode)
+//     }
 func Run(executable string, args ...string) Response {
 	var res Response
 	var outbuf, errbuf bytes.Buffer
