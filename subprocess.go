@@ -1,3 +1,4 @@
+// Package subprocess provides support for standard output/error pipe data & exit status codes with new spawned system processes
 package subprocess
 
 import (
@@ -6,12 +7,33 @@ import (
 	"syscall"
 )
 
+// Response is a struct that is returned from the public functions in the subprocess package.  It contains the following
+// fields:
+//
+//     Response.StdOut - (string) standard output stream cast to a string
+//     Response.StdErr - (string) standard error stream cast to a string
+//     Response.ExitCode - (int) executable exit status code as an integer
 type Response struct {
 	StdOut   string
 	StdErr   string
 	ExitCode int
 }
 
+// Run is a public function that executes a system command and returns the standard output stream,
+// standard error stream, and exit status code data in a returned subprocess.Response struct.
+// Run takes the following parameters:
+//
+//  executable (string) - the system executable for the command call
+//  args (...string) - comma delimited list of arguments to executable
+//
+// Example:
+//
+// func main() {
+//     response := Run("go", "--help")
+//     fmt.Printf("%s\n", response.StdOut)
+//     fmt.Printf("%s\n", response.StdErr)
+//     fmt.Printf("%d\n", response.ExitCode)
+// }
 func Run(executable string, args ...string) Response {
 	var res Response
 	var outbuf, errbuf bytes.Buffer
@@ -45,6 +67,6 @@ func Run(executable string, args ...string) Response {
 	return res
 }
 
-func Pipe() {
-	// TODO
-}
+//func Pipe() {
+//	// TODO
+//}
