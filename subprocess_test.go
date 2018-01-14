@@ -414,3 +414,21 @@ func TestRunShellWindowsInvalidExecutableArgument(t *testing.T) {
 		}
 	}
 }
+
+func TestRunShellWindowsCmdShell(t *testing.T) {
+	if runtime.GOOS == "windows" {
+		response := RunShell("", "", "dir", "/AD")
+		t.Logf("%d\n", response.ExitCode)
+		t.Logf("%s\n", response.StdOut)
+		t.Logf("%s\n", response.StdErr)
+		if response.ExitCode == 0 {
+			t.Errorf("[FAIL] Expected command to return non-0 exit status code and instead it returned %d", response.ExitCode)
+		}
+		if len(response.StdErr) == 0 {
+			t.Errorf("[FAIL] Expected command to return standard error output and instead it returned empty string")
+		}
+		if len(response.StdOut) > 0 {
+			t.Errorf("[FAIL] Expected command to return no standard output but instead it returned %s.", response.StdOut)
+		}
+	}
+}
