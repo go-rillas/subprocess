@@ -41,7 +41,7 @@ type Response struct {
 // Run takes the following parameters:
 //
 //  executable (string) - the system executable for the command call
-//  args (...string) - comma delimited list of arguments to executable
+//  args (...string) - one or more executable arguments as comma delimited parameters
 //
 // Example:
 //
@@ -77,18 +77,38 @@ func Run(executable string, args ...string) Response {
 	return res
 }
 
+// RunShell is a public function that executes a system command with a shell and returns the standard output stream,
+// standard error stream, and exit status code data in a returned subprocess.Response struct.
+// RunShell takes the following parameters:
+//
+//  shell (string) - path to shell, optional.  Defaults = /bin/sh on Linux, macOS; bash on Windows
+//  shellflag (string) - flag to execute system executable from a shell executable. Default = `-c` on all platforms
+//  command (...string) - one or more executable arguments as comma delimited parameters
+//
+// Example:
+//
+//     func main() {
+//         response := RunShell("", "", "ls", "-l")
+//         fmt.Printf("%s\n", response.StdOut)
+//         fmt.Printf("%s\n", response.StdErr)
+//         fmt.Printf("%d\n", response.ExitCode)
+//         response2 := RunShell("/usr/local/bin/zsh", "-c", "ls", "-l")
+//         fmt.Printf("%s\n", response.StdOut)
+//         fmt.Printf("%s\n", response.StdErr)
+//         fmt.Printf("%d\n", response.ExitCode)
+//     }
 func RunShell(shell string, shellflag string, command ...string) Response {
 	// define the default shell by platform
 	if shell == "" {
 		if runtime.GOOS == "windows" {
-			shell = `bash`       // defined as "cmd \C" for Windows
+			shell = `bash`       // defined as "bash" for Windows
 		} else {
-			shell = `/bin/sh`   // defined as "/bin/sh -c" for *nix (including macOS)
+			shell = `/bin/sh`   // defined as "/bin/sh" for *nix (including macOS)
 		}
 	}
 	// define the default shell flag for execution of system executables
 	if shellflag == "" {
-		shellflag = "-c"
+		shellflag = "-c"  // defined as `bash -c` calls for Windows and `/bin/sh -c` calls for *nix (including macOS)
 	}
 	// define function variables
 	var res Response
