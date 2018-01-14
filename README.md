@@ -8,7 +8,7 @@
 
 ## About
 
-subprocess is a Go library that returns standard output, standard error, and exit status code data from new spawned processes on Linux, macOS, and Windows (Win 10+ with `bash` installed) platforms.  It was inspired by the Python subprocess standard library module.
+subprocess is a Go library that returns standard output, standard error, and exit status code data from new spawned processes on Linux, macOS, and Windows platforms.  It was inspired by the Python subprocess standard library module.
 
 The subprocess library API has not reached a stable status yet and backwards incompatible changes may take place at any point before the v1.0.0 release.  The API will be defined as stable and the library will follow SemVer versioning for all backwards incompatible changes as of the v1.0.0 release.
 
@@ -85,7 +85,7 @@ func main() {
 func RunShell(shell string, shellflag string, command ...string) Response
 ```
 
-The `RunShell()` function executes a system executable with a default or function parameter defined shell and returns the standard output, standard error, and exit status code data in a `Response` struct.  The default shell for Linux and macOS platforms is `/bin/sh`.  The default shell for Windows is `bash`.  The shell can be modified by defining the `shell` function parameter.  By default, all platforms use the `-c` flag to the shell executable as an indicator that subsequent arguments define a command that is to be executed by the shell.  This flag can be modified in the `shellflag` parameter.  Include one or more arguments for the command that is to be executed as additional function parameters.
+The `RunShell()` function executes a system executable with a default or function parameter defined shell and returns the standard output, standard error, and exit status code data in a `Response` struct.  The default shell for Linux and macOS platforms is `/bin/sh`.  The default shell for Windows is `bash` and Windows 10+ with bash installed is a mandatory dependency for use of the default settings in this function on the Windows platform.  The shell can be modified by defining the `shell` function parameter.  By default, all platforms use the `-c` flag to the shell executable as an indicator that subsequent arguments define a command that is to be executed by the shell.  This flag can be modified in the `shellflag` parameter.  Include one or more arguments for the command that is to be executed as additional function parameters.
 
 ##### Example with default shell
 
