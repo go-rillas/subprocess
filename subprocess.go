@@ -5,8 +5,8 @@ import (
 	"bytes"
 	"os/exec"
 	"runtime"
-	"syscall"
 	"strings"
+	"syscall"
 )
 
 // Response is a struct that is returned from the public functions in the subprocess package.  It contains the following
@@ -101,14 +101,14 @@ func RunShell(shell string, shellflag string, command ...string) Response {
 	// define the default shell by platform
 	if shell == "" {
 		if runtime.GOOS == "windows" {
-			shell = `bash`       // defined as "bash" for Windows
+			shell = `bash` // defined as "bash" for Windows
 		} else {
-			shell = `/bin/sh`   // defined as "/bin/sh" for *nix (including macOS)
+			shell = `/bin/sh` // defined as "/bin/sh" for *nix (including macOS)
 		}
 	}
 	// define the default shell flag for execution of system executables
 	if shellflag == "" {
-		shellflag = "-c"  // defined as `bash -c` calls for Windows and `/bin/sh -c` calls for *nix (including macOS)
+		shellflag = "-c" // defined as `bash -c` calls for Windows and `/bin/sh -c` calls for *nix (including macOS)
 	}
 	// define function variables
 	var res Response

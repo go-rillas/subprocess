@@ -1,8 +1,8 @@
 package subprocess
 
 import (
-	"testing"
 	"runtime"
+	"testing"
 )
 
 // Run() function tests
@@ -107,7 +107,6 @@ func TestRunShellUnixValidDefaultShellCommandTwoStringsWithShellFlag(t *testing.
 		}
 	}
 }
-
 
 func TestRunShellUnixValidBashShellCommandOneString(t *testing.T) {
 	if runtime.GOOS != "windows" {
@@ -289,7 +288,6 @@ func TestRunShellWindowsValidDefaultShellCommandTwoStringsWithShellFlag(t *testi
 		}
 	}
 }
-
 
 func TestRunShellWindowsValidMockShellCommandOneString(t *testing.T) {
 	if runtime.GOOS == "windows" {
