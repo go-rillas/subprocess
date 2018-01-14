@@ -221,6 +221,9 @@ func TestRunShellUnixInvalidExecutableArgument(t *testing.T) {
 func TestRunShellWindowsValidDefaultShellCommandOneString(t *testing.T) {
 	if runtime.GOOS == "windows" {
 		response := RunShell("", "", "dir /ad")
+		t.Logf("%d\n", response.ExitCode)
+		t.Logf("%s\n", response.StdOut)
+		t.Logf("%s\n", response.StdErr)
 		if response.ExitCode != 0 {
 			t.Errorf("[FAIL] Expected command to return 0 exit status code and instead it returned %d", response.ExitCode)
 		}
@@ -236,6 +239,9 @@ func TestRunShellWindowsValidDefaultShellCommandOneString(t *testing.T) {
 func TestRunShellWindowsValidDefaultShellCommandOneStringWithShellFlag(t *testing.T) {
 	if runtime.GOOS == "windows" {
 		response := RunShell("", `\C`, "dir /ad")
+		t.Logf("%d\n", response.ExitCode)
+		t.Logf("%s\n", response.StdOut)
+		t.Logf("%s\n", response.StdErr)
 		if response.ExitCode != 0 {
 			t.Errorf("[FAIL] Expected command to return 0 exit status code and instead it returned %d", response.ExitCode)
 		}
@@ -251,6 +257,9 @@ func TestRunShellWindowsValidDefaultShellCommandOneStringWithShellFlag(t *testin
 func TestRunShellWindowsValidDefaultShellCommandTwoStrings(t *testing.T) {
 	if runtime.GOOS == "windows" {
 		response := RunShell("", "", "dir", "/ad")
+		t.Logf("%d\n", response.ExitCode)
+		t.Logf("%s\n", response.StdOut)
+		t.Logf("%s\n", response.StdErr)
 		if response.ExitCode != 0 {
 			t.Errorf("[FAIL] Expected command to return 0 exit status code and instead it returned %d", response.ExitCode)
 		}
@@ -266,6 +275,9 @@ func TestRunShellWindowsValidDefaultShellCommandTwoStrings(t *testing.T) {
 func TestRunShellWindowsValidDefaultShellCommandTwoStringsWithShellFlag(t *testing.T) {
 	if runtime.GOOS == "windows" {
 		response := RunShell("", `\C`, "dir", "/ad")
+		t.Logf("%d\n", response.ExitCode)
+		t.Logf("%s\n", response.StdOut)
+		t.Logf("%s\n", response.StdErr)
 		if response.ExitCode != 0 {
 			t.Errorf("[FAIL] Expected command to return 0 exit status code and instead it returned %d", response.ExitCode)
 		}
@@ -282,6 +294,9 @@ func TestRunShellWindowsValidDefaultShellCommandTwoStringsWithShellFlag(t *testi
 func TestRunShellWindowsValidMockShellCommandOneString(t *testing.T) {
 	if runtime.GOOS == "windows" {
 		response := RunShell("cmd", "", "dir /ad")
+		t.Logf("%d\n", response.ExitCode)
+		t.Logf("%s\n", response.StdOut)
+		t.Logf("%s\n", response.StdErr)
 		if response.ExitCode != 0 {
 			t.Errorf("[FAIL] Expected command to return 0 exit status code and instead it returned %d", response.ExitCode)
 		}
@@ -297,6 +312,9 @@ func TestRunShellWindowsValidMockShellCommandOneString(t *testing.T) {
 func TestRunShellWindowsValidMockShellCommandOneStringWithShellFlag(t *testing.T) {
 	if runtime.GOOS == "windows" {
 		response := RunShell("cmd", `\C`, "dir /ad")
+		t.Logf("%d\n", response.ExitCode)
+		t.Logf("%s\n", response.StdOut)
+		t.Logf("%s\n", response.StdErr)
 		if response.ExitCode != 0 {
 			t.Errorf("[FAIL] Expected command to return 0 exit status code and instead it returned %d", response.ExitCode)
 		}
@@ -312,6 +330,9 @@ func TestRunShellWindowsValidMockShellCommandOneStringWithShellFlag(t *testing.T
 func TestRunShellWindowsValidMockShellCommandTwoString(t *testing.T) {
 	if runtime.GOOS == "windows" {
 		response := RunShell("cmd", "", "dir", "/ad")
+		t.Logf("%d\n", response.ExitCode)
+		t.Logf("%s\n", response.StdOut)
+		t.Logf("%s\n", response.StdErr)
 		if response.ExitCode != 0 {
 			t.Errorf("[FAIL] Expected command to return 0 exit status code and instead it returned %d", response.ExitCode)
 		}
@@ -327,6 +348,9 @@ func TestRunShellWindowsValidMockShellCommandTwoString(t *testing.T) {
 func TestRunShellWindowsValidMockShellCommandTwoStringWithShellFlag(t *testing.T) {
 	if runtime.GOOS == "windows" {
 		response := RunShell("cmd", `\C`, "dir", "/ad")
+		t.Logf("%d\n", response.ExitCode)
+		t.Logf("%s\n", response.StdOut)
+		t.Logf("%s\n", response.StdErr)
 		if response.ExitCode != 0 {
 			t.Errorf("[FAIL] Expected command to return 0 exit status code and instead it returned %d", response.ExitCode)
 		}
@@ -342,6 +366,9 @@ func TestRunShellWindowsValidMockShellCommandTwoStringWithShellFlag(t *testing.T
 func TestRunShellWindowsInvalidShell(t *testing.T) {
 	if runtime.GOOS == "windows" {
 		response := RunShell("totallybogusshell", "", "dir", "/ad")
+		t.Logf("%d\n", response.ExitCode)
+		t.Logf("%s\n", response.StdOut)
+		t.Logf("%s\n", response.StdErr)
 		if response.ExitCode == 0 {
 			t.Errorf("[FAIL] Expected command to return non-0 exit status code and instead it returned %d", response.ExitCode)
 		}
@@ -357,6 +384,9 @@ func TestRunShellWindowsInvalidShell(t *testing.T) {
 func TestRunShellWindowsInvalidExecutable(t *testing.T) {
 	if runtime.GOOS == "windows" {
 		response := RunShell("", "", "completelybogus", "/ad")
+		t.Logf("%d\n", response.ExitCode)
+		t.Logf("%s\n", response.StdOut)
+		t.Logf("%s\n", response.StdErr)
 		if response.ExitCode == 0 {
 			t.Errorf("[FAIL] Expected command to return non-0 exit status code and instead it returned %d", response.ExitCode)
 		}
@@ -371,7 +401,10 @@ func TestRunShellWindowsInvalidExecutable(t *testing.T) {
 
 func TestRunShellWindowsInvalidExecutableArgument(t *testing.T) {
 	if runtime.GOOS == "windows" {
-		response := RunShell("", "", "dir", "/zzz")
+		response := RunShell("", "", "cd", "bogusdir")
+		t.Logf("%d\n", response.ExitCode)
+		t.Logf("%s\n", response.StdOut)
+		t.Logf("%s\n", response.StdErr)
 		if response.ExitCode == 0 {
 			t.Errorf("[FAIL] Expected command to return non-0 exit status code and instead it returned %d", response.ExitCode)
 		}
@@ -380,6 +413,24 @@ func TestRunShellWindowsInvalidExecutableArgument(t *testing.T) {
 		}
 		if len(response.StdOut) > 0 {
 			t.Errorf("[FAIL] Expected command to return no standard output but instead it returned %s.", response.StdOut)
+		}
+	}
+}
+
+func TestRunShellWindowsBashShellCommand(t *testing.T) {
+	if runtime.GOOS == "windows" {
+		response := RunShell("bash", "-c", "ls -l")
+		t.Logf("%d\n", response.ExitCode)
+		t.Logf("%s\n", response.StdOut)
+		t.Logf("%s\n", response.StdErr)
+		if response.ExitCode != 0 {
+			t.Errorf("[FAIL] Expected command to return 0 exit status code and instead it returned %d", response.ExitCode)
+		}
+		if len(response.StdErr) > 0 {
+			t.Errorf("[FAIL] Expected command to return no standard error output and instead it returned %v", response.StdErr)
+		}
+		if len(response.StdOut) == 0 {
+			t.Errorf("[FAIL] Expected command to return standard output but instead it was empty.")
 		}
 	}
 }
