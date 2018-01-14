@@ -81,18 +81,14 @@ func RunShell(shell string, shellflag string, command ...string) Response {
 	// define the default shell by platform
 	if shell == "" {
 		if runtime.GOOS == "windows" {
-			shell = `cmd`       // defined as "cmd \C" for Windows
+			shell = `bash`       // defined as "cmd \C" for Windows
 		} else {
 			shell = `/bin/sh`   // defined as "/bin/sh -c" for *nix (including macOS)
 		}
 	}
 	// define the default shell flag for execution of system executables
 	if shellflag == "" {
-		if runtime.GOOS == "windows" {
-			shellflag = `\C`
-		} else {
-			shellflag = `-c`
-		}
+		shellflag = "-c"
 	}
 	// define function variables
 	var res Response
