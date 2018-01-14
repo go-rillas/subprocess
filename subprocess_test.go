@@ -111,7 +111,7 @@ func TestRunShellUnixValidDefaultShellCommandTwoStringsWithShellFlag(t *testing.
 
 func TestRunShellUnixValidBashShellCommandOneString(t *testing.T) {
 	if runtime.GOOS != "windows" {
-		response := RunShell("/usr/local/bin/bash", "", "git --help")
+		response := RunShell("/bin/bash", "", "git --help")
 		if response.ExitCode != 0 {
 			t.Errorf("[FAIL] Expected command to return 0 exit status code and instead it returned %d", response.ExitCode)
 		}
@@ -126,7 +126,7 @@ func TestRunShellUnixValidBashShellCommandOneString(t *testing.T) {
 
 func TestRunShellUnixValidBashShellCommandOneStringWithShellFlag(t *testing.T) {
 	if runtime.GOOS != "windows" {
-		response := RunShell("/usr/local/bin/bash", "-c", "git --help")
+		response := RunShell("/bin/bash", "-c", "git --help")
 		if response.ExitCode != 0 {
 			t.Errorf("[FAIL] Expected command to return 0 exit status code and instead it returned %d", response.ExitCode)
 		}
@@ -141,7 +141,7 @@ func TestRunShellUnixValidBashShellCommandOneStringWithShellFlag(t *testing.T) {
 
 func TestRunShellUnixValidBashShellCommandTwoString(t *testing.T) {
 	if runtime.GOOS != "windows" {
-		response := RunShell("/usr/local/bin/bash", "", "git", "--help")
+		response := RunShell("/bin/bash", "", "git", "--help")
 		if response.ExitCode != 0 {
 			t.Errorf("[FAIL] Expected command to return 0 exit status code and instead it returned %d", response.ExitCode)
 		}
@@ -156,7 +156,7 @@ func TestRunShellUnixValidBashShellCommandTwoString(t *testing.T) {
 
 func TestRunShellUnixValidBashShellCommandTwoStringWithShellFlag(t *testing.T) {
 	if runtime.GOOS != "windows" {
-		response := RunShell("/usr/local/bin/bash", "-c", "git", "--help")
+		response := RunShell("/bin/bash", "-c", "git", "--help")
 		if response.ExitCode != 0 {
 			t.Errorf("[FAIL] Expected command to return 0 exit status code and instead it returned %d", response.ExitCode)
 		}
