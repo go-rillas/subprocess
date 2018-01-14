@@ -219,7 +219,7 @@ func TestRunShellUnixInvalidExecutableArgument(t *testing.T) {
 
 func TestRunShellWindowsValidDefaultShellCommandOneString(t *testing.T) {
 	if runtime.GOOS == "windows" {
-		response := RunShell("", "", "ls -l")
+		response := RunShell("", "", "dir /AD")
 		t.Logf("%d\n", response.ExitCode)
 		t.Logf("%s\n", response.StdOut)
 		t.Logf("%s\n", response.StdErr)
@@ -237,7 +237,7 @@ func TestRunShellWindowsValidDefaultShellCommandOneString(t *testing.T) {
 
 func TestRunShellWindowsValidDefaultShellCommandOneStringWithShellFlag(t *testing.T) {
 	if runtime.GOOS == "windows" {
-		response := RunShell("", "-c", "ls -l")
+		response := RunShell("", "/C", "dir /AD")
 		t.Logf("%d\n", response.ExitCode)
 		t.Logf("%s\n", response.StdOut)
 		t.Logf("%s\n", response.StdErr)
@@ -255,7 +255,7 @@ func TestRunShellWindowsValidDefaultShellCommandOneStringWithShellFlag(t *testin
 
 func TestRunShellWindowsValidDefaultShellCommandTwoStrings(t *testing.T) {
 	if runtime.GOOS == "windows" {
-		response := RunShell("", "", "ls", "-l")
+		response := RunShell("", "", "dir", "/AD")
 		t.Logf("%d\n", response.ExitCode)
 		t.Logf("%s\n", response.StdOut)
 		t.Logf("%s\n", response.StdErr)
@@ -273,7 +273,7 @@ func TestRunShellWindowsValidDefaultShellCommandTwoStrings(t *testing.T) {
 
 func TestRunShellWindowsValidDefaultShellCommandTwoStringsWithShellFlag(t *testing.T) {
 	if runtime.GOOS == "windows" {
-		response := RunShell("", "-c", "ls", "-l")
+		response := RunShell("", "/C", "dir", "/AD")
 		t.Logf("%d\n", response.ExitCode)
 		t.Logf("%s\n", response.StdOut)
 		t.Logf("%s\n", response.StdErr)
@@ -291,7 +291,7 @@ func TestRunShellWindowsValidDefaultShellCommandTwoStringsWithShellFlag(t *testi
 
 func TestRunShellWindowsValidMockShellCommandOneString(t *testing.T) {
 	if runtime.GOOS == "windows" {
-		response := RunShell("bash", "", "ls -l")
+		response := RunShell("cmd.exe", "", "dir /AD")
 		t.Logf("%d\n", response.ExitCode)
 		t.Logf("%s\n", response.StdOut)
 		t.Logf("%s\n", response.StdErr)
@@ -309,7 +309,7 @@ func TestRunShellWindowsValidMockShellCommandOneString(t *testing.T) {
 
 func TestRunShellWindowsValidMockShellCommandOneStringWithShellFlag(t *testing.T) {
 	if runtime.GOOS == "windows" {
-		response := RunShell("bash", "-c", "ls -l")
+		response := RunShell("cmd.exe", "/C", "dir /AD")
 		t.Logf("%d\n", response.ExitCode)
 		t.Logf("%s\n", response.StdOut)
 		t.Logf("%s\n", response.StdErr)
@@ -327,7 +327,7 @@ func TestRunShellWindowsValidMockShellCommandOneStringWithShellFlag(t *testing.T
 
 func TestRunShellWindowsValidMockShellCommandTwoString(t *testing.T) {
 	if runtime.GOOS == "windows" {
-		response := RunShell("bash", "", "ls", "-l")
+		response := RunShell("cmd.exe", "", "dir", "/AD")
 		t.Logf("%d\n", response.ExitCode)
 		t.Logf("%s\n", response.StdOut)
 		t.Logf("%s\n", response.StdErr)
@@ -345,7 +345,7 @@ func TestRunShellWindowsValidMockShellCommandTwoString(t *testing.T) {
 
 func TestRunShellWindowsValidMockShellCommandTwoStringWithShellFlag(t *testing.T) {
 	if runtime.GOOS == "windows" {
-		response := RunShell("bash", "-c", "ls", "-l")
+		response := RunShell("cmd.exe", "/C", "dir", "/AD")
 		t.Logf("%d\n", response.ExitCode)
 		t.Logf("%s\n", response.StdOut)
 		t.Logf("%s\n", response.StdErr)
@@ -363,7 +363,7 @@ func TestRunShellWindowsValidMockShellCommandTwoStringWithShellFlag(t *testing.T
 
 func TestRunShellWindowsInvalidShell(t *testing.T) {
 	if runtime.GOOS == "windows" {
-		response := RunShell("totallybogusshell", "", "ls", "-l")
+		response := RunShell("totallybogusshell", "", "dir", "/AD")
 		t.Logf("%d\n", response.ExitCode)
 		t.Logf("%s\n", response.StdOut)
 		t.Logf("%s\n", response.StdErr)
@@ -399,25 +399,7 @@ func TestRunShellWindowsInvalidExecutable(t *testing.T) {
 
 func TestRunShellWindowsInvalidExecutableArgument(t *testing.T) {
 	if runtime.GOOS == "windows" {
-		response := RunShell("", "", "ls", "-z")
-		t.Logf("%d\n", response.ExitCode)
-		t.Logf("%s\n", response.StdOut)
-		t.Logf("%s\n", response.StdErr)
-		if response.ExitCode == 0 {
-			t.Errorf("[FAIL] Expected command to return non-0 exit status code and instead it returned %d", response.ExitCode)
-		}
-		if len(response.StdErr) == 0 {
-			t.Errorf("[FAIL] Expected command to return standard error output and instead it returned empty string")
-		}
-		if len(response.StdOut) > 0 {
-			t.Errorf("[FAIL] Expected command to return no standard output but instead it returned %s.", response.StdOut)
-		}
-	}
-}
-
-func TestRunShellWindowsCmdShell(t *testing.T) {
-	if runtime.GOOS == "windows" {
-		response := RunShell("", "", "dir", "/AD")
+		response := RunShell("", "", "dir", "/ZZZ")
 		t.Logf("%d\n", response.ExitCode)
 		t.Logf("%s\n", response.StdOut)
 		t.Logf("%s\n", response.StdErr)
