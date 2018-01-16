@@ -9,8 +9,8 @@ import (
 	"syscall"
 )
 
-// Response is a struct that is returned from the public functions in the subprocess package.  It contains the following
-// fields:
+// Response is a struct that is defined with data on execution of the public Run and RunShell functions.  It is
+// returned from these public functions with the following data fields:
 //
 //     Response.StdOut - (string) standard output stream cast to a string
 //     Response.StdErr - (string) standard error stream cast to a string
@@ -40,8 +40,8 @@ type Response struct {
 // standard error stream, and exit status code data in a returned subprocess.Response struct.
 // Run takes the following parameters:
 //
-//  executable (string) - the system executable for the command call
-//  args (...string) - one or more executable arguments as comma delimited parameters
+//  executable (string) - the executable for the command
+//  args (...string) - one or more arguments to the executable as a comma delimited list of parameters
 //
 // Example:
 //
@@ -81,11 +81,11 @@ func Run(executable string, args ...string) Response {
 // standard error stream, and exit status code data in a returned subprocess.Response struct.
 // RunShell takes the following parameters:
 //
-//  shell (string) - path to shell, optional.  Defaults = /bin/sh on Linux, macOS; bash on Windows
-//  shellflag (string) - flag to execute system executable from a shell executable. Default = `-c` on all platforms
-//  command (...string) - one or more executable arguments as comma delimited parameters
+//  shell (string) - path to shell.  Defaults = /bin/sh on Linux, macOS; cmd.exe on Windows
+//  shellflag (string) - flag to run executable file with shell. Default = `-c` (macOS/Linux); `/C` (Win)
+//  command (...string) - one or more executable commands as comma delimited parameters
 //
-// Example:
+// Example (macOS/Linux):
 //
 //     func main() {
 //         response := RunShell("", "", "ls", "-l")
@@ -93,6 +93,19 @@ func Run(executable string, args ...string) Response {
 //         fmt.Printf("%s\n", response.StdErr)
 //         fmt.Printf("%d\n", response.ExitCode)
 //         response2 := RunShell("/usr/local/bin/zsh", "-c", "ls", "-l")
+//         fmt.Printf("%s\n", response.StdOut)
+//         fmt.Printf("%s\n", response.StdErr)
+//         fmt.Printf("%d\n", response.ExitCode)
+//     }
+//
+// Example (Windows):
+//
+//     func main() {
+//         response := RunShell("", "", "dir", "/AD")
+//         fmt.Printf("%s\n", response.StdOut)
+//         fmt.Printf("%s\n", response.StdErr)
+//         fmt.Printf("%d\n", response.ExitCode)
+//         response2 := RunShell("bash", "-c", "ls", "-l")
 //         fmt.Printf("%s\n", response.StdOut)
 //         fmt.Printf("%s\n", response.StdErr)
 //         fmt.Printf("%d\n", response.ExitCode)
@@ -108,7 +121,7 @@ func RunShell(shell string, shellflag string, command ...string) Response {
 	}
 	// define the default shell flag for execution of system executables
 	if shellflag == "" {
-		if runtime.GOOS == "windows"{
+		if runtime.GOOS == "windows" {
 			shellflag = "/C"
 		} else {
 			shellflag = "-c" // defined as `bash -c` calls for Windows and `/bin/sh -c` calls for *nix (including macOS)
@@ -139,10 +152,6 @@ func RunShell(shell string, shellflag string, command ...string) Response {
 
 	return res
 }
-
-//func Pipe() {
-//	// TODO
-//}
 
 /*    ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
  *    ┃                                                                              ┃
