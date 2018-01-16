@@ -14,7 +14,9 @@ The subprocess library API has not reached a stable status yet and backwards inc
 
 ## Install
 
-Install the library locally for testing and use in development with the following command:
+The subprocess package does not include external dependencies. It is built with the Go standard library.
+
+Install the subprocess library locally for testing and development use with the following command:
 
 ```
 go get github.com/pygz/subprocess
@@ -22,9 +24,7 @@ go get github.com/pygz/subprocess
 
 ## Usage
 
-subprocess exposes two public functions and a public struct with standard output, standard error, and exit status code response data from system executable calls.  [Full API documentation is available on GoDoc](https://godoc.org/github.com/pygz/subprocess).
-
-**NOTE**: The subprocess library does not currently support automated shell escaping of strings that are used for execution of system commands.  _These commands have the potential to do significant harm_.  Please understand these concepts and how to avoid problems before you use this library, particularly if you intend to open your application to command definitions at runtime by untrusted sources.  The [Python `shlex.quote` documentation](https://docs.python.org/3.6/library/shlex.html#shlex.quote) is a good place to start.
+subprocess exposes two public functions and a public struct with standard output, standard error, and exit status code response data from executable files that can be called on the command line.  [Full API documentation is available on GoDoc](https://godoc.org/github.com/pygz/subprocess).
 
 ### Import `subprocess` into your source files
 
@@ -39,6 +39,8 @@ import (
 ### Public Data Types
 
 #### `subprocess.Response`
+
+The subprocess package defines the `Response` public data type with standard output, standard error, and exit status code fields.  This is populated and returned to the calling code when you run an executable file with the public functions that are available in the subprocess package.
 
 ```go
 type Response struct {
@@ -56,7 +58,7 @@ type Response struct {
 func Run(executable string, args ...string) Response
 ```
 
-The `Run()` function executes a system executable call with optional arguments and returns the standard output, standard error, and exit status code data in a `Response` struct.  Include one or more arguments to the executable as additional function parameters.
+The `Run()` function runs an executable file with optional arguments and returns the standard output, standard error, and exit status code data in a `Response` struct.  Include one or more arguments to the executable as additional function parameters.
 
 ##### Example
 
@@ -85,9 +87,9 @@ func main() {
 func RunShell(shell string, shellflag string, command ...string) Response
 ```
 
-The `RunShell()` function executes a system executable with a default or function parameter defined shell and returns the standard output, standard error, and exit status code data in a `Response` struct.  The default shell for Linux and macOS platforms is `/bin/sh`.  The default shell for Windows is `bash` and Windows 10+ with bash installed is a mandatory dependency for use of the default settings in this function on the Windows platform.  The shell can be modified by defining the `shell` function parameter.  By default, all platforms use the `-c` flag to the shell executable as an indicator that subsequent arguments define a command that is to be executed by the shell.  This flag can be modified in the `shellflag` parameter.  Include one or more arguments for the command that is to be executed as additional function parameters.
+The `RunShell()` function runs an executable file with a shell and returns the standard output, standard error, and exit status code data in a `Response` struct.  The default shell for Linux and macOS platforms is `/bin/sh`.  The default shell for Windows is the `cmd.exe` command prompt. The shell can be modified by defining the `shell` function parameter.  A shell flag is included to indicate that the argument that follows is to be executed by the shell.  The default flag on macOS and Linux platforms is `-c`.  On Windows, this is `/C`.  This flag can be modified in the `shellflag` parameter.  Define the command to be executed as one or more parameters at the end of the function call.
 
-##### Example with default shell
+##### Example with the default shell on macOS/Linux
 
 ```go
 package main
@@ -108,7 +110,28 @@ func main() {
 }
 ```
 
-##### Example with redefined shell
+##### Example with the default shell on Windows
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/pygz/subprocess"
+)
+
+func main() {
+	response := RunShell("", "", "dir", "/AD")
+	// print the standard output stream data
+	fmt.Printf("%s", response.StdOut)
+	// print the standard error stream data
+	fmt.Printf("%s", response.StdErr)
+	// print the exit status code integer value
+	fmt.Printf("%d", response.ExitCode)
+}
+```
+
+##### Example with redefined shell on macOS/Linux
 
 ```go
 package main
@@ -129,9 +152,30 @@ func main() {
 }
 ```
 
+##### Example with redefined shell on Windows
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/pygz/subprocess"
+)
+
+func main() {
+	response := RunShell("bash", "-c", "ls", "-l")
+	// print the standard output stream data
+	fmt.Printf("%s", response.StdOut)
+	// print the standard error stream data
+	fmt.Printf("%s", response.StdErr)
+	// print the exit status code integer value
+	fmt.Printf("%d", response.ExitCode)
+}
+```
+
 ### Contributing
 
-Contributions to the project are welcomed. Please submit changes as pull requests on the Github repository.
+Contributions to the project are welcomed. Please submit changes in a pull request on the Github repository.
 
 ### Testing
 
@@ -145,7 +189,7 @@ Go must be installed on your system in order to execute this command.
 
 ### Acknowledgments
 
-The subprocess library was inspired by the Python standard library subprocess module.  Source code for the exit status code retrieval was based on source discussed in the Stack Overflow posts [here](https://stackoverflow.com/a/40770011) and [here](https://stackoverflow.com/a/10385867).
+The subprocess library was inspired by the Python standard library subprocess module.  Source code for the exit status code retrieval was based on source discussed in the Stack Overflow posts [here](https://stackoverflow.com/a/40770011) and [here](https://stackoverflow.com/a/10385867). A big thanks to Michael (@texhex) and JM (@jublo) for their input and feedback on the Windows platform implementation.
 
 ### License
 
