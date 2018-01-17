@@ -101,7 +101,7 @@ func TestRunShellDefaultShellCliMockStdoutZero(t *testing.T) {
 }
 
 func TestRunShellDefaultShellCliMockStderrOne(t *testing.T) {
-	response := RunShell("", "","climock --stderr Test --exit 1")
+	response := RunShell("", "", "climock --stderr Test --exit 1")
 
 	if response.ExitCode != 1 {
 		t.Errorf("[FAIL] Expected mock exit code to be one and it was %d", response.ExitCode)
@@ -121,7 +121,6 @@ func TestRunShellDefaultShellCliMockExitTwo(t *testing.T) {
 		t.Errorf("[FAIL] Expected mock exit code to be 2 and it was %d", response.ExitCode)
 	}
 }
-
 
 ////////////////////////////////////////////////////////////
 // RunShell() function tests - *nix platform specific tests
