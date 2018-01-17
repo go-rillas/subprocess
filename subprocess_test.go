@@ -7,6 +7,19 @@ import (
 
 // Run() function tests
 
+func TestRunCliMockStdoutZero(t *testing.T) {
+	response := Run("climock", "--stdout", "This is a test")
+	if response.ExitCode != 0 {
+		t.Errorf("[FAIL] Expected mock exit code to be zero and it was %d", response.ExitCode)
+	}
+	if response.StdOut != "This is a test" {
+		t.Errorf("[FAIL] Expected mock std out to be 'This is a test' and it was actually '%s'", response.StdOut)
+	}
+	if len(response.StdErr) != 0 {
+		t.Errorf("[FAIL] Expeceted no std err output but received '%s'", response.StdErr)
+	}
+}
+
 func TestRunValidCommand(t *testing.T) {
 	response := Run("git", "--help")
 	if response.ExitCode != 0 {
