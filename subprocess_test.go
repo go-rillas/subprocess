@@ -8,12 +8,7 @@ import (
 // Run() function tests
 
 func TestRunCliMockStdoutZero(t *testing.T) {
-	var response Response
-	if runtime.GOOS == "windows" {
-		response = Run("climock", "--stdout", "This is a test")
-	} else {
-		response = Run("climock", "--stdout", "This is a test")
-	}
+	response := Run("climock", "--stdout", "This is a test")
 
 	if response.ExitCode != 0 {
 		t.Errorf("[FAIL] Expected mock exit code to be zero and it was %d", response.ExitCode)
@@ -23,6 +18,28 @@ func TestRunCliMockStdoutZero(t *testing.T) {
 	}
 	if len(response.StdErr) != 0 {
 		t.Errorf("[FAIL] Expected no std err output but received '%s'", response.StdErr)
+	}
+}
+
+func TestRunCliMockStderrOne(t *testing.T) {
+	response := Run("climock", "--stderr", "This is a test", "--exit", "1")
+
+	if response.ExitCode != 1 {
+		t.Errorf("[FAIL] Expected mock exit code to be one and it was %d", response.ExitCode)
+	}
+	if response.StdErr != "This is a test" {
+		t.Errorf("[FAIL] Expected mock std err to be 'This is a test' and it was actually '%s'", response.StdErr)
+	}
+	if len(response.StdOut) != 0 {
+		t.Errorf("[FAIL] Expected no std err output but received '%s'", response.StdOut)
+	}
+}
+
+func TestRunCliMockExitTwo(t *testing.T) {
+	response := Run("climock", "--exit", "2")
+
+	if response.ExitCode != 2 {
+		t.Errorf("[FAIL] Expected mock exit code to be 2 and it was %d", response.ExitCode)
 	}
 }
 
@@ -65,7 +82,50 @@ func TestRunInvalidCommandMissingExecutable(t *testing.T) {
 	}
 }
 
-// RunShell() function tests - *nix platform
+//////////////////////////////////////////////////////////////////////
+// RunShell() function tests - climock mock stdout/err/exit code tests
+//////////////////////////////////////////////////////////////////////
+
+func TestRunShellDefaultShellCliMockStdoutZero(t *testing.T) {
+	response := RunShell("", "", "climock --stdout 'This is a test'")
+
+	if response.ExitCode != 0 {
+		t.Errorf("[FAIL] Expected mock exit code to be zero and it was %d", response.ExitCode)
+	}
+	if response.StdOut != "This is a test" {
+		t.Errorf("[FAIL] Expected mock std out to be 'This is a test' and it was actually '%s'", response.StdOut)
+	}
+	if len(response.StdErr) != 0 {
+		t.Errorf("[FAIL] Expected no std err output but received '%s'", response.StdErr)
+	}
+}
+
+func TestRunShellDefaultShellCliMockStderrOne(t *testing.T) {
+	response := RunShell("", "","climock --stderr 'This is a test' --exit 1")
+
+	if response.ExitCode != 1 {
+		t.Errorf("[FAIL] Expected mock exit code to be one and it was %d", response.ExitCode)
+	}
+	if response.StdErr != "This is a test" {
+		t.Errorf("[FAIL] Expected mock std err to be 'This is a test' and it was actually '%s'", response.StdErr)
+	}
+	if len(response.StdOut) != 0 {
+		t.Errorf("[FAIL] Expected no std err output but received '%s'", response.StdOut)
+	}
+}
+
+func TestRunShellDefaultShellCliMockExitTwo(t *testing.T) {
+	response := RunShell("", "", "climock", "--exit", "2")
+
+	if response.ExitCode != 2 {
+		t.Errorf("[FAIL] Expected mock exit code to be 2 and it was %d", response.ExitCode)
+	}
+}
+
+
+////////////////////////////////////////////////////////////
+// RunShell() function tests - *nix platform specific tests
+////////////////////////////////////////////////////////////
 
 func TestRunShellUnixValidDefaultShellCommandOneString(t *testing.T) {
 	if runtime.GOOS != "windows" {
@@ -232,9 +292,51 @@ func TestRunShellUnixInvalidExecutableArgument(t *testing.T) {
 	}
 }
 
-////////////////////////////////////////////////
-//  RunShell() function tests - Windows platform
-////////////////////////////////////////////////
+func TestRunShellUnixAlternateShellCliMockStdoutZero(t *testing.T) {
+	if runtime.GOOS != "windows" {
+		response := RunShell("/bin/bash", "-c", "climock --stdout 'This is a test'")
+
+		if response.ExitCode != 0 {
+			t.Errorf("[FAIL] Expected mock exit code to be zero and it was %d", response.ExitCode)
+		}
+		if response.StdOut != "This is a test" {
+			t.Errorf("[FAIL] Expected mock std out to be 'This is a test' and it was actually '%s'", response.StdOut)
+		}
+		if len(response.StdErr) != 0 {
+			t.Errorf("[FAIL] Expected no std err output but received '%s'", response.StdErr)
+		}
+	}
+}
+
+func TestRunShellUnixAlternateShellCliMockStderrOne(t *testing.T) {
+	if runtime.GOOS != "windows" {
+		response := RunShell("/bin/bash", "-c", "climock --stderr 'This is a test' --exit 1")
+
+		if response.ExitCode != 1 {
+			t.Errorf("[FAIL] Expected mock exit code to be one and it was %d", response.ExitCode)
+		}
+		if response.StdErr != "This is a test" {
+			t.Errorf("[FAIL] Expected mock std err to be 'This is a test' and it was actually '%s'", response.StdErr)
+		}
+		if len(response.StdOut) != 0 {
+			t.Errorf("[FAIL] Expected no std err output but received '%s'", response.StdOut)
+		}
+	}
+}
+
+func TestRunShellUnixAlternateShellCliMockExitTwo(t *testing.T) {
+	if runtime.GOOS != "windows" {
+		response := RunShell("/bin/bash", "-c", "climock", "--exit", "2")
+
+		if response.ExitCode != 2 {
+			t.Errorf("[FAIL] Expected mock exit code to be 2 and it was %d", response.ExitCode)
+		}
+	}
+}
+
+////////////////////////////////////////////////////////////////
+//  RunShell() function tests - Windows platform specific tests
+////////////////////////////////////////////////////////////////
 
 func TestRunShellWindowsValidDefaultShellCommandOneString(t *testing.T) {
 	if runtime.GOOS == "windows" {
@@ -430,6 +532,48 @@ func TestRunShellWindowsInvalidExecutableArgument(t *testing.T) {
 		}
 		if len(response.StdOut) > 0 {
 			t.Errorf("[FAIL] Expected command to return no standard output but instead it returned %s.", response.StdOut)
+		}
+	}
+}
+
+func TestRunShellWindowsAlternateShellCliMockStdoutZero(t *testing.T) {
+	if runtime.GOOS == "windows" {
+		response := RunShell("bash", "-c", "climock --stdout 'This is a test'")
+
+		if response.ExitCode != 0 {
+			t.Errorf("[FAIL] Expected mock exit code to be zero and it was %d", response.ExitCode)
+		}
+		if response.StdOut != "This is a test" {
+			t.Errorf("[FAIL] Expected mock std out to be 'This is a test' and it was actually '%s'", response.StdOut)
+		}
+		if len(response.StdErr) != 0 {
+			t.Errorf("[FAIL] Expected no std err output but received '%s'", response.StdErr)
+		}
+	}
+}
+
+func TestRunShellWindowsAlternateShellCliMockStderrOne(t *testing.T) {
+	if runtime.GOOS == "windows" {
+		response := RunShell("bash", "-c", "climock --stderr 'This is a test' --exit 1")
+
+		if response.ExitCode != 1 {
+			t.Errorf("[FAIL] Expected mock exit code to be one and it was %d", response.ExitCode)
+		}
+		if response.StdErr != "This is a test" {
+			t.Errorf("[FAIL] Expected mock std err to be 'This is a test' and it was actually '%s'", response.StdErr)
+		}
+		if len(response.StdOut) != 0 {
+			t.Errorf("[FAIL] Expected no std err output but received '%s'", response.StdOut)
+		}
+	}
+}
+
+func TestRunShellWindowsAlternateShellCliMockExitTwo(t *testing.T) {
+	if runtime.GOOS == "windows" {
+		response := RunShell("bash", "-c", "climock", "--exit", "2")
+
+		if response.ExitCode != 2 {
+			t.Errorf("[FAIL] Expected mock exit code to be 2 and it was %d", response.ExitCode)
 		}
 	}
 }
