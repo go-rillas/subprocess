@@ -87,13 +87,13 @@ func TestRunInvalidCommandMissingExecutable(t *testing.T) {
 //////////////////////////////////////////////////////////////////////
 
 func TestRunShellDefaultShellCliMockStdoutZero(t *testing.T) {
-	response := RunShell("", "", "climock --stdout 'This is a test'")
+	response := RunShell("", "", "climock --stdout Test")
 
 	if response.ExitCode != 0 {
 		t.Errorf("[FAIL] Expected mock exit code to be zero and it was %d", response.ExitCode)
 	}
-	if response.StdOut != "This is a test" {
-		t.Errorf("[FAIL] Expected mock std out to be 'This is a test' and it was actually '%s'", response.StdOut)
+	if response.StdOut != "Test" {
+		t.Errorf("[FAIL] Expected mock std out to be 'Test' and it was actually '%s'", response.StdOut)
 	}
 	if len(response.StdErr) != 0 {
 		t.Errorf("[FAIL] Expected no std err output but received '%s'", response.StdErr)
@@ -101,13 +101,13 @@ func TestRunShellDefaultShellCliMockStdoutZero(t *testing.T) {
 }
 
 func TestRunShellDefaultShellCliMockStderrOne(t *testing.T) {
-	response := RunShell("", "","climock --stderr 'This is a test' --exit 1")
+	response := RunShell("", "","climock --stderr Test --exit 1")
 
 	if response.ExitCode != 1 {
 		t.Errorf("[FAIL] Expected mock exit code to be one and it was %d", response.ExitCode)
 	}
-	if response.StdErr != "This is a test" {
-		t.Errorf("[FAIL] Expected mock std err to be 'This is a test' and it was actually '%s'", response.StdErr)
+	if response.StdErr != "Test" {
+		t.Errorf("[FAIL] Expected mock std err to be 'Test' and it was actually '%s'", response.StdErr)
 	}
 	if len(response.StdOut) != 0 {
 		t.Errorf("[FAIL] Expected no std err output but received '%s'", response.StdOut)
