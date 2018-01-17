@@ -8,7 +8,7 @@
 
 ## About
 
-subprocess is a Go library that returns standard output, standard error, and exit status code data from new spawned processes on Linux, macOS, and Windows platforms.  It was inspired by the Python subprocess standard library module.
+subprocess is a Go library that returns standard output, standard error, and exit status code data from newly spawned processes on Linux, macOS, and Windows platforms.  It was inspired by the Python subprocess standard library module.
 
 The subprocess library API is versioned under the [SemVer specification](https://semver.org/).
 
@@ -24,7 +24,7 @@ go get gopkg.in/pygz/subprocess.v1
 
 ## Usage
 
-subprocess exposes two public functions and a public struct with standard output, standard error, and exit status code response data from executable files that can be called on the command line.  [Full API documentation is available on GoDoc](https://godoc.org/github.com/pygz/subprocess).
+subprocess exposes two public functions and a public struct with standard output, standard error, and exit status code data from executable files.  [Full API documentation is available on GoDoc](https://godoc.org/github.com/pygz/subprocess).
 
 ### Import `subprocess` into your source files
 
@@ -32,7 +32,7 @@ subprocess exposes two public functions and a public struct with standard output
 package main
 
 import (
-	"gopkg.in/pygz/subprocess.v1"
+    "gopkg.in/pygz/subprocess.v1"
 )
 ```
 
@@ -44,9 +44,9 @@ The subprocess package defines the `Response` public data type with standard out
 
 ```go
 type Response struct {
-	StdOut   string
-	StdErr   string
-	ExitCode int
+    StdOut   string
+    StdErr   string
+    ExitCode int
 }
 ```
 
@@ -66,18 +66,18 @@ The `Run()` function runs an executable file with optional arguments and returns
 package main
 
 import (
-	"fmt"
-	"gopkg.in/pygz/subprocess.v1"
+    "fmt"
+    "gopkg.in/pygz/subprocess.v1"
 )
 
 func main() {
-	response := Run("ls", "-l")
-	// print the standard output stream data
-	fmt.Printf("%s", response.StdOut)
-	// print the standard error stream data
-	fmt.Printf("%s", response.StdErr)
-	// print the exit status code integer value
-	fmt.Printf("%d", response.ExitCode)
+    response := Run("ls", "-l")
+    // print the standard output stream data
+    fmt.Printf("%s", response.StdOut)
+    // print the standard error stream data
+    fmt.Printf("%s", response.StdErr)
+    // print the exit status code integer value
+    fmt.Printf("%d", response.ExitCode)
 }
 ```
 
@@ -87,18 +87,18 @@ func main() {
 package main
 
 import (
-	"fmt"
-	"gopkg.in/pygz/subprocess.v1"
+    "fmt"
+    "gopkg.in/pygz/subprocess.v1"
 )
 
 func main() {
-	response := Run("dir", "/AD")
-	// print the standard output stream data
-	fmt.Printf("%s", response.StdOut)
-	// print the standard error stream data
-	fmt.Printf("%s", response.StdErr)
-	// print the exit status code integer value
-	fmt.Printf("%d", response.ExitCode)
+    response := Run("dir", "/AD")
+    // print the standard output stream data
+    fmt.Printf("%s", response.StdOut)
+    // print the standard error stream data
+    fmt.Printf("%s", response.StdErr)
+    // print the exit status code integer value
+    fmt.Printf("%d", response.ExitCode)
 }
 ```
 
@@ -109,7 +109,7 @@ func main() {
 func RunShell(shell string, shellflag string, command ...string) Response
 ```
 
-The `RunShell()` function runs an executable file with a shell and returns the standard output, standard error, and exit status code data in a `Response` struct.  The default shell for Linux and macOS platforms is `/bin/sh`.  The default shell for Windows is the `cmd.exe` command prompt. The shell can be modified by defining the `shell` function parameter.  A shell flag is included to indicate that the argument that follows is to be executed by the shell.  The default flag on macOS and Linux platforms is `-c`.  On Windows, this is `/C`.  This flag can be modified in the `shellflag` parameter.  Define the command to be executed as one or more parameters at the end of the function call.
+The `RunShell()` function runs an executable file with a shell and returns the standard output, standard error, and exit status code data in a `Response` struct.  The default shell for Linux and macOS platforms is `/bin/sh`.  The default shell for Windows is the `cmd.exe` command prompt. Modify the shell by defining the `shell` function parameter.  A shell flag is included to indicate that the argument that follows is to be executed by the shell.  The default flag on macOS and Linux platforms is `-c`.  On Windows, this is `/C`.  Modify the flag by defining the `shellflag` parameter.  Define the command to be executed as one or more parameters at the end of the function call.
 
 ##### Example with the default shell on macOS/Linux
 
@@ -117,18 +117,18 @@ The `RunShell()` function runs an executable file with a shell and returns the s
 package main
 
 import (
-	"fmt"
-	"gopkg.in/pygz/subprocess.v1"
+    "fmt"
+    "gopkg.in/pygz/subprocess.v1"
 )
 
 func main() {
-	response := RunShell("", "", "ls", "-l")
-	// print the standard output stream data
-	fmt.Printf("%s", response.StdOut)
-	// print the standard error stream data
-	fmt.Printf("%s", response.StdErr)
-	// print the exit status code integer value
-	fmt.Printf("%d", response.ExitCode)
+    response := RunShell("", "", "ls", "-l")
+    // print the standard output stream data
+    fmt.Printf("%s", response.StdOut)
+    // print the standard error stream data
+    fmt.Printf("%s", response.StdErr)
+    // print the exit status code integer value
+    fmt.Printf("%d", response.ExitCode)
 }
 ```
 
@@ -138,18 +138,18 @@ func main() {
 package main
 
 import (
-	"fmt"
-	"gopkg.in/pygz/subprocess.v1"
+    "fmt"
+    "gopkg.in/pygz/subprocess.v1"
 )
 
 func main() {
-	response := RunShell("", "", "dir", "/AD")
-	// print the standard output stream data
-	fmt.Printf("%s", response.StdOut)
-	// print the standard error stream data
-	fmt.Printf("%s", response.StdErr)
-	// print the exit status code integer value
-	fmt.Printf("%d", response.ExitCode)
+    response := RunShell("", "", "dir", "/AD")
+    // print the standard output stream data
+    fmt.Printf("%s", response.StdOut)
+    // print the standard error stream data
+    fmt.Printf("%s", response.StdErr)
+    // print the exit status code integer value
+    fmt.Printf("%d", response.ExitCode)
 }
 ```
 
@@ -159,18 +159,18 @@ func main() {
 package main
 
 import (
-	"fmt"
-	"gopkg.in/pygz/subprocess.v1"
+    "fmt"
+    "gopkg.in/pygz/subprocess.v1"
 )
 
 func main() {
-	response := RunShell("/usr/local/bin/zsh", "", "ls", "-l")
-	// print the standard output stream data
-	fmt.Printf("%s", response.StdOut)
-	// print the standard error stream data
-	fmt.Printf("%s", response.StdErr)
-	// print the exit status code integer value
-	fmt.Printf("%d", response.ExitCode)
+    response := RunShell("/usr/local/bin/zsh", "", "ls", "-l")
+    // print the standard output stream data
+    fmt.Printf("%s", response.StdOut)
+    // print the standard error stream data
+    fmt.Printf("%s", response.StdErr)
+    // print the exit status code integer value
+    fmt.Printf("%d", response.ExitCode)
 }
 ```
 
@@ -180,18 +180,18 @@ func main() {
 package main
 
 import (
-	"fmt"
-	"gopkg.in/pygz/subprocess.v1"
+    "fmt"
+    "gopkg.in/pygz/subprocess.v1"
 )
 
 func main() {
-	response := RunShell("bash", "-c", "ls", "-l")
-	// print the standard output stream data
-	fmt.Printf("%s", response.StdOut)
-	// print the standard error stream data
-	fmt.Printf("%s", response.StdErr)
-	// print the exit status code integer value
-	fmt.Printf("%d", response.ExitCode)
+    response := RunShell("bash", "-c", "ls", "-l")
+    // print the standard output stream data
+    fmt.Printf("%s", response.StdOut)
+    // print the standard error stream data
+    fmt.Printf("%s", response.StdErr)
+    // print the exit status code integer value
+    fmt.Printf("%d", response.ExitCode)
 }
 ```
 
@@ -215,9 +215,9 @@ You can then execute source code unit tests and obtain source code coverage data
 $ go test -v -cover ./...
 ```
 
-Go must be installed on your system in order to execute this command.
+Go must be installed on your system to execute this command.
 
-The subprocess package is tested with [Semaphore CI](https://semaphoreci.com/pygz/subprocess) (Linux) and [Appveyor CI](https://ci.appveyor.com/project/chrissimpkins/subprocess) (Windows). You may view the test results following the most recent commit (including commits proposed through a pull request) using those links.
+We test the subprocess package with [Semaphore CI](https://semaphoreci.com/pygz/subprocess) (Linux) and [Appveyor CI](https://ci.appveyor.com/project/chrissimpkins/subprocess) (Windows). You may view the test results following the most recent commit (including commits proposed through a pull request) using those links.
 
 ### Acknowledgments
 
