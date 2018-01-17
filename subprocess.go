@@ -1,4 +1,4 @@
-// Package subprocess provides support for standard output/error pipe data & exit status codes with new spawned system processes
+// Package subprocess provides support for standard output/error pipe data & exit status codes with newly spawned system processes
 package subprocess
 
 import (
@@ -9,7 +9,7 @@ import (
 	"syscall"
 )
 
-// Response is a struct that is defined with data on execution of the public Run and RunShell functions.  It is
+// Response is a struct that is defined with data on the execution of the public Run and RunShell functions.  It is
 // returned from these public functions with the following data fields:
 //
 //     Response.StdOut - (string) standard output stream cast to a string
@@ -41,7 +41,7 @@ type Response struct {
 // Run takes the following parameters:
 //
 //  executable (string) - the executable for the command
-//  args (...string) - one or more arguments to the executable as a comma delimited list of parameters
+//  args (...string) - one or more arguments to the executable as a comma-delimited list of parameters
 //
 // Example:
 //
@@ -81,9 +81,9 @@ func Run(executable string, args ...string) Response {
 // standard error stream, and exit status code data in a returned subprocess.Response struct.
 // RunShell takes the following parameters:
 //
-//  shell (string) - path to shell.  Defaults = /bin/sh on Linux, macOS; cmd.exe on Windows
+//  shell (string) - path to the shell.  Defaults = /bin/sh on Linux, macOS; cmd.exe on Windows
 //  shellflag (string) - flag to run executable file with shell. Default = `-c` (macOS/Linux); `/C` (Win)
-//  command (...string) - one or more executable commands as comma delimited parameters
+//  command (...string) - one or more executable commands, comma-delimited parameter format
 //
 // Example (macOS/Linux):
 //
