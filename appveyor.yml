@@ -6,6 +6,12 @@ platform:
 clone_folder: C:\GOPATH\src\github.com\pygz\subprocess
 environment:
   GOPATH: C:\GOPATH
+install:
+  - echo %PATH%
+  - echo %GOPATH%
+  - set PATH=%GOPATH%\bin;c:\go\bin;%PATH%
+  - go version
+  - go env
 build_script:
 - cmd: go get -v -d -t github.com/pygz/subprocess/...
 - cmd: go get -u -v github.com/chrissimpkins/climock/...
