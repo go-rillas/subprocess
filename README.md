@@ -217,8 +217,7 @@ $ go test -v -cover ./...
 
 Go must be installed on your system in order to execute this command.
 
-The subprocess package is tested with [Semaphore CI](https://semaphoreci.com/pygz/subprocess) (Linux) and [Appveyor CI](https://ci.appveyor.com/project/chrissimpkins/subprocess) (Windows).  
-You may view the test results following the most recent commit (including commits proposed through a pull request) using those links.
+The subprocess package is tested with [Semaphore CI](https://semaphoreci.com/pygz/subprocess) (Linux) and [Appveyor CI](https://ci.appveyor.com/project/chrissimpkins/subprocess) (Windows). You may view the test results following the most recent commit (including commits proposed through a pull request) using those links.
 
 ### Acknowledgments
 
