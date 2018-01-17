@@ -8,7 +8,13 @@ import (
 // Run() function tests
 
 func TestRunCliMockStdoutZero(t *testing.T) {
-	response := Run("climock", "--stdout", "This is a test")
+	var response Response
+	if runtime.GOOS == "windows" {
+		response = Run("climock.exe", "--stdout", "This is a test")
+	} else {
+		response = Run("climock", "--stdout", "This is a test")
+	}
+
 	if response.ExitCode != 0 {
 		t.Errorf("[FAIL] Expected mock exit code to be zero and it was %d", response.ExitCode)
 	}
