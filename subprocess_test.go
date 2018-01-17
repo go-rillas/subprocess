@@ -10,7 +10,7 @@ import (
 func TestRunCliMockStdoutZero(t *testing.T) {
 	var response Response
 	if runtime.GOOS == "windows" {
-		response = Run("climock.exe", "--stdout", "This is a test")
+		response = Run("%GOPATH%/bin/climock", "--stdout", "This is a test")
 	} else {
 		response = Run("climock", "--stdout", "This is a test")
 	}
@@ -22,7 +22,7 @@ func TestRunCliMockStdoutZero(t *testing.T) {
 		t.Errorf("[FAIL] Expected mock std out to be 'This is a test' and it was actually '%s'", response.StdOut)
 	}
 	if len(response.StdErr) != 0 {
-		t.Errorf("[FAIL] Expeceted no std err output but received '%s'", response.StdErr)
+		t.Errorf("[FAIL] Expected no std err output but received '%s'", response.StdErr)
 	}
 }
 
