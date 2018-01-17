@@ -19,7 +19,7 @@ The subprocess package does not include external dependencies. It is built with 
 Install the subprocess library locally for testing and development use with the following command:
 
 ```
-go get -u github.com/pygz/subprocess
+go get gopkg.in/pygz/subprocess.v1
 ```
 
 ## Usage
@@ -32,7 +32,7 @@ subprocess exposes two public functions and a public struct with standard output
 package main
 
 import (
-	"github.com/pygz/subprocess"
+	"gopkg.in/pygz/subprocess.v1"
 )
 ```
 
@@ -67,7 +67,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/pygz/subprocess"
+	"gopkg.in/pygz/subprocess.v1"
 )
 
 func main() {
@@ -88,7 +88,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/pygz/subprocess"
+	"gopkg.in/pygz/subprocess.v1"
 )
 
 func main() {
@@ -118,7 +118,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/pygz/subprocess"
+	"gopkg.in/pygz/subprocess.v1"
 )
 
 func main() {
@@ -139,7 +139,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/pygz/subprocess"
+	"gopkg.in/pygz/subprocess.v1"
 )
 
 func main() {
@@ -160,7 +160,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/pygz/subprocess"
+	"gopkg.in/pygz/subprocess.v1"
 )
 
 func main() {
@@ -181,7 +181,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/pygz/subprocess"
+	"gopkg.in/pygz/subprocess.v1"
 )
 
 func main() {
