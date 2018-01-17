@@ -1,5 +1,11 @@
 ## Changelog
 
+### v1.0.0
+
+- first production release
+- API is now stable
+- SemVer versioning in place for all future backwards incompatible changes
+
 ### v0.3.0
 
 - refactored `RunShell` function for support of `cmd.exe` as the default shell on Windows (changed from bash default)
