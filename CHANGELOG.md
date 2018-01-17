@@ -1,5 +1,9 @@
 ## Changelog
 
+### v1.0.1
+
+- minor source documentation (docstring) revisions
+
 ### v1.0.0
 
 - first production release
