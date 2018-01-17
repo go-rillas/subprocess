@@ -10,7 +10,7 @@ import (
 func TestRunCliMockStdoutZero(t *testing.T) {
 	var response Response
 	if runtime.GOOS == "windows" {
-		response = Run("%GOPATH%/bin/climock", "--stdout", "This is a test")
+		response = Run("$env:GOPATH/bin/climock", "--stdout", "This is a test")
 	} else {
 		response = Run("climock", "--stdout", "This is a test")
 	}
