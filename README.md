@@ -10,7 +10,7 @@
 
 subprocess is a Go library that returns standard output, standard error, and exit status code data from new spawned processes on Linux, macOS, and Windows platforms.  It was inspired by the Python subprocess standard library module.
 
-The subprocess library API has not reached a stable status yet and backwards incompatible changes may take place at any point before the v1.0.0 release.  The API will be defined as stable and the library will follow SemVer versioning for all backwards incompatible changes as of the v1.0.0 release.
+The subprocess library API is versioned under the [SemVer specification](https://semver.org/).
 
 ## Install
 
@@ -19,7 +19,7 @@ The subprocess package does not include external dependencies. It is built with 
 Install the subprocess library locally for testing and development use with the following command:
 
 ```
-go get github.com/pygz/subprocess
+go get -u github.com/pygz/subprocess
 ```
 
 ## Usage
@@ -60,7 +60,7 @@ func Run(executable string, args ...string) Response
 
 The `Run()` function runs an executable file with optional arguments and returns the standard output, standard error, and exit status code data in a `Response` struct.  Include one or more arguments to the executable as additional function parameters.
 
-##### Example
+##### Example on macOS/Linux
 
 ```go
 package main
@@ -80,6 +80,28 @@ func main() {
 	fmt.Printf("%d", response.ExitCode)
 }
 ```
+
+##### Example on Windows
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/pygz/subprocess"
+)
+
+func main() {
+	response := Run("dir", "/AD")
+	// print the standard output stream data
+	fmt.Printf("%s", response.StdOut)
+	// print the standard error stream data
+	fmt.Printf("%s", response.StdErr)
+	// print the exit status code integer value
+	fmt.Printf("%d", response.ExitCode)
+}
+```
+
 
 #### `subprocess.RunShell()`
 
@@ -179,17 +201,28 @@ Contributions to the project are welcomed. Please submit changes in a pull reque
 
 ### Testing
 
-You can execute source code unit tests and obtain source code coverage data locally by downloading the source repository and executing the following command in the root of the source repository:
+[climock](https://github.com/chrissimpkins/climock) is a dependency that must be installed manually for the execution of subprocess package tests.
+
+Install `climock` with:
+
+```
+$ go get -u github.com/chrissimpkins/climock
+```
+
+You can then execute source code unit tests and obtain source code coverage data locally by downloading the source repository and executing the following command in the root of the source repository:
 
 ```
 $ go test -v -cover ./...
 ```
 
-Go must be installed on your system in order to execute this command.  
+Go must be installed on your system in order to execute this command.
+
+The subprocess package is tested with [Semaphore CI](https://semaphoreci.com/pygz/subprocess) (Linux) and [Appveyor CI](https://ci.appveyor.com/project/chrissimpkins/subprocess) (Windows).  
+You may view the test results following the most recent commit (including commits proposed through a pull request) using those links.
 
 ### Acknowledgments
 
-The subprocess library was inspired by the Python standard library subprocess module.  Source code for the exit status code retrieval was based on source discussed in the Stack Overflow posts [here](https://stackoverflow.com/a/40770011) and [here](https://stackoverflow.com/a/10385867). A big thanks to Michael (@texhex) and JM (@jublo) for their input and feedback on the Windows platform implementation.
+The subprocess library was inspired by the Python standard library subprocess module.  Source code for the exit status code retrieval was based on source discussed in the Stack Overflow posts [here](https://stackoverflow.com/a/40770011) and [here](https://stackoverflow.com/a/10385867). A big thanks to Michael ([@texhex](https://github.com/texhex)) and JM ([@jublo](https://github.com/jublo)) for their input and feedback on the Windows platform support.
 
 ### License
 
