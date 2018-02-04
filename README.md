@@ -1,10 +1,10 @@
-# pygz/subprocess 
+# go-rillas/subprocess 
 
-[![GitHub release](https://img.shields.io/github/release/pygz/subprocess.svg?style=flat-square)](https://github.com/pygz/subprocess/releases/latest)
+[![GitHub release](https://img.shields.io/github/release/go-rillas/subprocess.svg?style=flat-square)](https://github.com/go-rillas/subprocess/releases/latest)
 [![Software License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
-[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://godoc.org/gopkg.in/pygz/subprocess.v1)
-[![Build Status](https://semaphoreci.com/api/v1/pygz/subprocess/branches/master/badge.svg)](https://semaphoreci.com/pygz/subprocess) 
-[![Build status](https://ci.appveyor.com/api/projects/status/722snh8mfavt0j93/branch/master?svg=true)](https://ci.appveyor.com/project/chrissimpkins/subprocess/branch/master) 
+[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://godoc.org/gopkg.in/go-rillas/subprocess.v1)
+[![Build Status](https://semaphoreci.com/api/v1/go-rillas/subprocess/branches/master/badge.svg)](https://semaphoreci.com/go-rillas/subprocess)
+[![Build status](https://ci.appveyor.com/api/projects/status/6s0es0a54fs21r71/branch/master?svg=true)](https://ci.appveyor.com/project/chrissimpkins/subprocess/branch/master)
 
 ## About
 
@@ -19,12 +19,12 @@ The subprocess package does not include external dependencies. It is built with 
 Install the subprocess library locally for testing and development use with the following command:
 
 ```
-go get gopkg.in/pygz/subprocess.v1
+go get gopkg.in/go-rillas/subprocess.v1
 ```
 
 ## Usage
 
-subprocess exposes two public functions and a public struct with standard output, standard error, and exit status code data from executable files.  [Full API documentation is available on GoDoc](https://godoc.org/github.com/pygz/subprocess).
+subprocess exposes two public functions and a public struct with standard output, standard error, and exit status code data from executable files.  [Full API documentation is available on GoDoc](https://godoc.org/github.com/go-rillas/subprocess).
 
 ### Import `subprocess` into your source files
 
@@ -32,7 +32,7 @@ subprocess exposes two public functions and a public struct with standard output
 package main
 
 import (
-    "gopkg.in/pygz/subprocess.v1"
+    "gopkg.in/go-rillas/subprocess.v1"
 )
 ```
 
@@ -67,7 +67,7 @@ package main
 
 import (
     "fmt"
-    "gopkg.in/pygz/subprocess.v1"
+    "gopkg.in/go-rillas/subprocess.v1"
 )
 
 func main() {
@@ -88,7 +88,7 @@ package main
 
 import (
     "fmt"
-    "gopkg.in/pygz/subprocess.v1"
+    "gopkg.in/go-rillas/subprocess.v1"
 )
 
 func main() {
@@ -118,7 +118,7 @@ package main
 
 import (
     "fmt"
-    "gopkg.in/pygz/subprocess.v1"
+    "gopkg.in/go-rillas/subprocess.v1"
 )
 
 func main() {
@@ -139,7 +139,7 @@ package main
 
 import (
     "fmt"
-    "gopkg.in/pygz/subprocess.v1"
+    "gopkg.in/go-rillas/subprocess.v1"
 )
 
 func main() {
@@ -160,7 +160,7 @@ package main
 
 import (
     "fmt"
-    "gopkg.in/pygz/subprocess.v1"
+    "gopkg.in/go-rillas/subprocess.v1"
 )
 
 func main() {
@@ -181,7 +181,7 @@ package main
 
 import (
     "fmt"
-    "gopkg.in/pygz/subprocess.v1"
+    "gopkg.in/go-rillas/subprocess.v1"
 )
 
 func main() {
@@ -217,7 +217,7 @@ $ go test -v -cover ./...
 
 Go must be installed on your system to execute this command.
 
-We test the subprocess package with [Semaphore CI](https://semaphoreci.com/pygz/subprocess) (Linux) and [Appveyor CI](https://ci.appveyor.com/project/chrissimpkins/subprocess) (Windows). You may view the test results following the most recent commit (including commits proposed through a pull request) using those links.
+We test the subprocess package with [Semaphore CI](https://semaphoreci.com/go-rillas/subprocess) (Linux) and [Appveyor CI](https://ci.appveyor.com/project/chrissimpkins/subprocess) (Windows). You may view the test results following the most recent commit (including commits proposed through a pull request) using those links.
 
 ### Acknowledgments
 
