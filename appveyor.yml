@@ -3,7 +3,7 @@ image: Visual Studio 2017
 platform:
 - x86
 - x64
-clone_folder: C:\GOPATH\src\github.com\pygz\subprocess
+clone_folder: C:\GOPATH\src\github.com\go-rillas\subprocess
 environment:
   GOPATH: C:\GOPATH
 install:
@@ -13,7 +13,7 @@ install:
   - go version
   - go env
 build_script:
-- cmd: go get -v -d -t github.com/pygz/subprocess/...
+- cmd: go get -v -d -t github.com/go-rillas/subprocess/...
 - cmd: go get -u -v github.com/chrissimpkins/climock/...
 test_script:
 - cmd: go test -v ./...
